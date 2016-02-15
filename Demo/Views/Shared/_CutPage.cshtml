@@ -1,0 +1,72 @@
+﻿@{
+    //判断URL是否带有参数
+    ViewBag.link = ViewBag.link.Contains("?") ? ViewBag.link += "&" : ViewBag.link += "?";
+    //当前页索引
+    int currentPage = ViewBag.currentPage;
+    //总页数
+    int totalPageCount = ViewBag.total % ViewBag.perCount == 0 ? ViewBag.total / ViewBag.perCount : ViewBag.total / ViewBag.perCount + 1;
+    //跳转地址(jumpTo+=index)
+    string jumpTo = ViewBag.link + "perCount=" + ViewBag.perCount + "&pageIndex=";
+}
+<div class="container-fluid">
+    <div class="text-center">
+        <div class="last">
+
+
+            @if (currentPage != 1)
+            { // 处理首页按钮[当前页=第一页]
+                <a href="@(jumpTo + 1)">
+                    <input class="btn btn-primary" type="button" value="首页">
+                </a>
+            }
+            else
+            {
+                <input class="btn " type="button" value="当前首页">
+            }
+
+            @if (currentPage > 1)
+            {//处理上一页按钮[当前页>第一页]
+                <a href="@(jumpTo + (currentPage-1))">
+                    <input class="btn btn-primary" type="button" value="上一页">
+                </a>
+            }
+            else
+            {
+                <input class="btn " type="button" value="无上一页">
+            }
+
+            @if (currentPage < totalPageCount)
+            {//处理下一页按钮 [当前页<最后一页]
+                <a href="@(jumpTo + (currentPage+1))">
+                    <input class="btn btn-primary" type="button" value="下一页">
+                </a>
+            }
+            else
+            {
+                <input class="btn " type="button" value="无下一页">
+            }
+            @if (currentPage < totalPageCount)
+            {//处理末页按钮 [当前页<最后一页]
+                <a href="@(jumpTo + totalPageCount)">
+                    <input class="btn btn-primary" type="button" value="末页">
+                </a>
+            }
+            else
+            {
+                <input class="btn " type="button" value="当前末页">
+            }
+        </div>
+
+        <form action="@(ViewBag.link.Substring(0, ViewBag.link.IndexOf('?')))" method="get">
+            <label>（共 @(totalPageCount) 页, @ViewBag.total 条记录,本页显示第 @(ViewBag.perCount * (currentPage - 1) + 1) - @(ViewBag.perCount * (currentPage - 1) + ViewBag.perCount) 条）</label>
+            <label>每页显示</label>
+            <input name="perCount" value="@ViewBag.perCount" type="text" style="width:20px" />
+            <label>条,</label>
+            <label>跳转到第</label>
+            <input name="pageIndex" value="@currentPage" type="text" style="width:20px" />
+            <label>页</label>
+            <button class="btn btn-primary" type="submit">Go</button>
+        </form>
+
+    </div>
+</div>

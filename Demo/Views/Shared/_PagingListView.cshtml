@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!--引入头部-->
+@Html.Partial("_Head")
+<body>
+    <!--引入导航条-->
+    @*@Html.Partial("_Navbar")*@
+    <div class="container-fluid">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <!--显示表头开始-->
+                        @for (int i = 0; i < ViewBag.headerTitle.Count; i++)
+                        {
+                            <th>@ViewBag.headerTitle[i]</th>
+                        }
+                        <th>操作</th>
+                        <!--显示表头结束-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--显示数据开始-->
+                    @for (int i = 0; i < ViewBag.dataList.Count; i++)
+                    {
+                        <tr>
+                            @for (int j = 0; j < ViewBag.dataList[i].Count; j++)
+                            {
+                                <td> @Html.Raw(ViewBag.dataList[i][j])</td>
+                            }
+                            <td>
+                                @foreach (var op in ViewBag.operate)
+                                {
+                                    <a href='@(op.Value + "?" + ViewBag.linkParms[i])  ' class="tablelink">@op.Key</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    <!--显示数据结束-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--分页控件开始-->
+    @Html.Partial("_CutPage")
+    <!--分页控件结束-->
+</body>
+</html>

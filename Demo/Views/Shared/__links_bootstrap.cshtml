@@ -1,0 +1,17 @@
+﻿@{
+    string resourcePath = "/Includes/Bootstrap";
+}
+
+@*<script src='@(resourcePath+"")' type="text/javascript"> </script>
+    <link href='@(resourcePath+"")' type="text/css" rel="stylesheet" />*@
+
+<!--jquery-->
+@Html.Partial("__links_jquery")
+<!--bootstrap-->
+<script src='@(resourcePath + "/js/bootstrap.min.js")' type="text/javascript"> </script>
+<link href='@(resourcePath + "/css/bootstrap.min.css")' type="text/css" rel="stylesheet" />
+<link href='@(resourcePath + "/css/bootstrap-theme.min.css")' type="text/css" rel="stylesheet" />
+
+<script src='@(resourcePath + "/bootstrap-datetimepicker.min.js")' type="text/javascript"> </script>
+<link href='@(resourcePath + "/css/bootstrap-datetimepicker.min.css")' type="text/css" rel="stylesheet" />
+
